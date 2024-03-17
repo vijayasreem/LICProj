@@ -1,14 +1,15 @@
 package com.sacral.java.controller;
 
-import com.sacral.java.model.Applicant;
 import com.sacral.java.service.ApplicantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@RestController
-@RequestMapping("/applicants")
+@Controller
 public class ApplicantController {
 
     private final ApplicantService applicantService;
@@ -18,16 +19,17 @@ public class ApplicantController {
         this.applicantService = applicantService;
     }
 
-    @GetMapping("/highLimit")
-    public Applicant findEligibleApplicantWithHighLimit() {
-        return applicantService.findEligibleApplicantWithHighLimit();
+    @GetMapping("/verifyDocuments")
+    @ResponseBody
+    public String verifyDocuments(@RequestParam boolean identityVerified, @RequestParam boolean addressVerified) {
+        boolean result = applicantService.verifyDocuments(identityVerified, addressVerified);
+        return result ? "Document verification successful. You are eligible for banking services." : "Document verification incomplete. You are not eligible for banking services.";
     }
 
-    @GetMapping("/moderateLimit")
-    public Applicant findEligibleApplicantWithModerateLimit() {
-        return applicantService.findEligibleApplicantWithModerateLimit();
+    @PostMapping("/evaluateCredit")
+    @ResponseBody
+    public String evaluateCredit(@RequestBody Applicant applicant) {
+        applicantService.evaluateCredit(applicant);
+        return "Credit evaluation completed.";
     }
-
-    // Other business methods can be added here for creditworthiness evaluation
-
 }

@@ -8,14 +8,16 @@ import javax.persistence.Id;
 
 @Entity
 public class Applicant {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name;
-    private int creditScore;
+    
+    private boolean identityVerified;
+    private boolean addressVerified;
     private int annualIncome;
+    private int creditScore;
+
+    // Getters and setters
 
     public Long getId() {
         return id;
@@ -25,20 +27,20 @@ public class Applicant {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public boolean isIdentityVerified() {
+        return identityVerified;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIdentityVerified(boolean identityVerified) {
+        this.identityVerified = identityVerified;
     }
 
-    public int getCreditScore() {
-        return creditScore;
+    public boolean isAddressVerified() {
+        return addressVerified;
     }
 
-    public void setCreditScore(int creditScore) {
-        this.creditScore = creditScore;
+    public void setAddressVerified(boolean addressVerified) {
+        this.addressVerified = addressVerified;
     }
 
     public int getAnnualIncome() {
@@ -47,5 +49,13 @@ public class Applicant {
 
     public void setAnnualIncome(int annualIncome) {
         this.annualIncome = annualIncome;
+    }
+
+    public int getCreditScore() {
+        return creditScore;
+    }
+
+    public void setCreditScore(int creditScore) {
+        this.creditScore = creditScore;
     }
 }

@@ -9,10 +9,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 
-    @Query("SELECT a FROM Applicant a WHERE a.creditScore >= 700 AND a.annualIncome >= 30000")
-    Applicant findEligibleApplicantWithHighLimit();
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Applicant a WHERE a.identityVerified = true AND a.addressVerified = true")
+    boolean isEligibleForBankingServices();
 
-    @Query("SELECT a FROM Applicant a WHERE a.creditScore >= 600 AND a.annualIncome >= 20000")
-    Applicant findEligibleApplicantWithModerateLimit();
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Applicant a WHERE a.annualIncome >= 30000 AND a.creditScore >= 700")
+    boolean isEligibleForHighCreditScore();
+
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Applicant a WHERE a.annualIncome >= 20000 AND a.creditScore >= 600")
+    boolean isEligibleForModerateCreditScore();
 
 }
