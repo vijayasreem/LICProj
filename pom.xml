@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sacral.java</groupId>
-	<artifactId>SAC-45</artifactId>
+	<artifactId>SAC-44</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>LICProject</name>
